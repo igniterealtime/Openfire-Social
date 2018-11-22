@@ -1,23 +1,10 @@
-# WordPress
-Openfire Auth, Admin, User, Group and vCard providers for WordPress using direct DB access
+# Openfire Social
+Provides social network with member profiles, activity streams, user groups, messaging, blogs and more by integrating Openfire Meetings with  WordPress, bbPress and BuddyPress.
 
-In order to use this plugin, you **MUST* make a change to your wordpres PHP code(pluggable.php) in order to make user passwords readable in Openfire
-
-```
-function wp_hash_password($password) {
-    global $wp_hasher;
-
-    if ( empty($wp_hasher) ) {
-        require_once( ABSPATH . WPINC . '/class-phpass.php');
-        // By default, use the portable hash from phpass
-        $wp_hasher = new PasswordHash(8, true);
-    }
-
-    //return $wp_hasher->HashPassword( trim( $password ) );
-    return md5(trim($password));  
-}
-endif;
-```
+# How it works
+- Openfire shares same MySQL DB with WordPress and uses the DB Auth, User and Group providersto share same data.
+- Requres PHP to be installed and configured for Jetty FastCGIProxyServlet as normally done for an external web server like Nginx.
+- Openfire hosts pre-configured WordPress web application in Jetty instead of Apache or Nginx.
 
 # TODO
-Use FastCGIProxyServlet to host WordPress php application in Jetty like Nginx does.
+Complete documentation
