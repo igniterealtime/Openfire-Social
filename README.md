@@ -6,5 +6,8 @@ Provides social network with member profiles, activity streams, user groups, mes
 - Requres PHP to be installed and configured for Jetty FastCGIProxyServlet as normally done for an external web server like Nginx.
 - Openfire hosts pre-configured WordPress web application in Jetty instead of Apache or Nginx.
 
+# How to use
+- To login to to https://yourserver:7443/index.html
+
 # TODO
 Complete documentation
