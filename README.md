@@ -1,5 +1,7 @@
 # Openfire Social
-Provides social network with member profiles, activity streams, user groups, messaging, blogs and more by integrating Openfire Meetings with  WordPress, bbPress and BuddyPress.
+Provides social network with member profiles, activity streams, user groups, messaging, blogs and more by integrating Openfire Meetings and ConverseJS with  WordPress, bbPress and BuddyPress.
+
+<img src="https://igniterealtime.github.io/Openfire-Social/openfire-social.png" />
 
 # How it works
 - Openfire shares same MySQL DB with WordPress and uses the DB Auth, User and Group providersto share same data.
