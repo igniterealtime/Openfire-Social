@@ -63,7 +63,7 @@ function my_plugin_init()
 
             $user = wp_signon( $creds, false );
             wp_set_current_user( $user->ID, $username);
-            wp_set_auth_cookie( $user->ID, true, false );
+            wp_set_auth_cookie( $user->ID, false, false );
             do_action( 'wp_login', $username );
 
             if (is_wp_error($user)) echo "wp_signon ".$user->get_error_message();
@@ -98,10 +98,9 @@ function ofsocial_user_page()
 function ofsocial_login_ok( $user, $password )
 {
     ?>
-    <script>console.log("OPENFIRE - ofsocial_login_ok <?php echo $user->user_login." ".$password; ?>");</script>
+    <script>console.log("OPENFIRE - ofsocial_login_ok <?php echo $user->user_login; ?>");</script>
     <?php
 
-     echo_log('password:'.$password);
      return $user;
 }
 
