@@ -14,7 +14,7 @@ Provides social network with member profiles, activity streams, user groups, mes
 - Openfire 3.4.0 or higher configured and working with MySQL DB. You **cannot** use the embedded db
 
 # How to Install
-- Deploy the wordpress.jar file from the release pages here in Openfire as a normal plugin
+- Deploy the wordpress.jar file from the [release pages here](https://github.com/igniterealtime/Openfire-Social/releases/tag/v0.0.2) in Openfire as a normal plugin
 - Go to https://yourserver:7443/wp-admin to setup wordpress in the same MySQL DB as Openfire
 - When prompted for username/password, use the admin user in openfire to continue
 - Activate and configure all 5 pre-installed wordpress plugins.

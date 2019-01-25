@@ -68,10 +68,7 @@ WordPress Plugin.
 <h2>Installation</h2>
 
 <ol>
-    <li>Unzip the wordpress.jar file to a temporary WORDPRESS_PLUGIN folder.</li>
-    <li>Copy all the wordpress*.jar files in the WORDPRESS_PLUGIN/classes folder to the OPENFIRE_HOME/lib folder.</li>
     <li>Copy the wordpress.jar file to the OPENFIRE_HOME/plugins folder.</li>
-    <li>Restart Openfire.</li>
     <li>Configure the admin properties page.</li>
 </ol>
 
@@ -81,9 +78,46 @@ Under Server settings -> WordPress tab you can configure wordpress.
 
 <h2>How to use</h2>
 
-<p>
-
-<p/>
+<div class="Box-body p-6">
+    <article class="markdown-body entry-content" itemprop="text"><h1><a id="user-content-openfire-social" class="anchor" aria-hidden="true" href="#openfire-social"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Openfire Social</h1>
+    <p>Provides social network with member profiles, activity streams, user groups, messaging, blogs and more by integrating Openfire Meetings and ConverseJS with  WordPress, bbPress and BuddyPress.</p>
+    <p><a target="_blank" rel="noopener noreferrer" href="https://camo.githubusercontent.com/7333df95e7a37f6ca8d88c2286374de761b3a2c3/68747470733a2f2f69676e6974657265616c74696d652e6769746875622e696f2f4f70656e666972652d536f6369616c2f6f70656e666972652d736f6369616c2e706e67"><img src="https://camo.githubusercontent.com/7333df95e7a37f6ca8d88c2286374de761b3a2c3/68747470733a2f2f69676e6974657265616c74696d652e6769746875622e696f2f4f70656e666972652d536f6369616c2f6f70656e666972652d736f6369616c2e706e67" data-canonical-src="https://igniterealtime.github.io/Openfire-Social/openfire-social.png" style="max-width:100%;"></a></p>
+    <h1><a id="user-content-how-it-works" class="anchor" aria-hidden="true" href="#how-it-works"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>How it works</h1>
+    <ul>
+    <li>Openfire shares same MySQL DB with WordPress and uses the DB Auth, User and Group providersto share same data.</li>
+    <li>Requres PHP to be installed and configured for Jetty FastCGIProxyServlet as normally done for an external web server like Nginx.</li>
+    <li>Openfire hosts pre-configured WordPress web application plus plugins in Jetty instead of Apache or Nginx.</li>
+    </ul>
+    <h1><a id="user-content-what-you-need" class="anchor" aria-hidden="true" href="#what-you-need"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>What you need</h1>
+    <ul>
+    <li>MySQL or compatible DB</li>
+    <li>PHP-fpm or PHP-CGI</li>
+    <li>Openfire 3.4.0 or higher configured and working with MySQL DB. You <strong>cannot</strong> use the embedded db</li>
+    </ul>
+    <h1><a id="user-content-how-to-install" class="anchor" aria-hidden="true" href="#how-to-install"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>How to Install</h1>
+    <ul>
+    <li>Deploy the wordpress.jar file from the release pages here in Openfire as a normal plugin</li>
+    <li>Go to <a href="https://yourserver:7443/wp-admin" rel="nofollow">https://yourserver:7443/wp-admin</a> to setup wordpress in the same MySQL DB as Openfire</li>
+    <li>When prompted for username/password, use the admin user in openfire to continue</li>
+    <li>Activate and configure all 5 pre-installed wordpress plugins.</li>
+    <li>Create some users, groups and forums to confirm Wordpress is working fine with Jetty Web server in Openfire</li>
+    </ul>
+    <p>Now you are ready to add converseJS chat with wordpress. Do the following</p>
+    <ul>
+    <li>Go to Openfire web admin server|wordpress web page and enable auth, user and group provider check boxes.</li>
+    <li>Go to plugins web page and restart the wordpress plugin.</li>
+    <li>When wordpress restarts, it will cause openfire to switch to wordpress for all users and groups data.</li>
+    <li>Go to Users/Groups web page to confirm this.</li>
+    <li>You are now ready to test users with converse and wordpress together</li>
+    </ul>
+    <h1><a id="user-content-how-to-use" class="anchor" aria-hidden="true" href="#how-to-use"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>How to use</h1>
+    <ul>
+    <li>To login to to <a href="https://yourserver:7443/index.html" rel="nofollow">https://yourserver:7443/index.html</a></li>
+    <li>When prompted for username/password, use any of the users created in wordpress</li>
+    <li>if all goes well, you should have your wordpress homepage with converse chat button in bottom right corner. Click on it to login</li>
+    </ul>
+    </article>
+</div>
 
 </body>
 </html>

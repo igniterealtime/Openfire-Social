@@ -16,7 +16,16 @@
     if (update)
     {                               
         String wordpressEnabled = request.getParameter("wordpressEnabled");
-        JiveGlobals.setProperty("wordpress.enabled", (wordpressEnabled != null && wordpressEnabled.equals("on")) ? "true": "false");             
+        JiveGlobals.setProperty("wordpress.enabled", (wordpressEnabled != null && wordpressEnabled.equals("on")) ? "true": "false");  
+        
+        String wpAuthProviderEnabled = request.getParameter("wpAuthProviderEnabled");
+        JiveGlobals.setProperty("wordpress.auth.provider.enabled", (wpAuthProviderEnabled != null && wpAuthProviderEnabled.equals("on")) ? "true": "false");         
+        
+        String wpUserProviderEnabled = request.getParameter("wpUserProviderEnabled");
+        JiveGlobals.setProperty("wordpress.user.provider.enabled", (wpUserProviderEnabled != null && wpUserProviderEnabled.equals("on")) ? "true": "false");         
+
+        String wpGroupProviderEnabled = request.getParameter("wpGroupProviderEnabled");
+        JiveGlobals.setProperty("wordpress.group.provider.enabled", (wpGroupProviderEnabled != null && wpGroupProviderEnabled.equals("on")) ? "true": "false");                 
     }
 
 %>
@@ -46,10 +55,28 @@
             <tbody>  
             <tr>
                 <td nowrap  colspan="2">
-                    <input type="checkbox" name="wordpressEnabled"<%= (JiveGlobals.getProperty("wordpress.enabled", "false").equals("true")) ? " checked" : "" %>>
+                    <input type="checkbox" name="wordpressEnabled"<%= (JiveGlobals.getProperty("wordpress.enabled", "true").equals("true")) ? " checked" : "" %>>
                     <fmt:message key="config.page.configuration.enabled" />       
                 </td>  
-            </tr>                
+            </tr>   
+            <tr>
+                <td nowrap  colspan="2">
+                    <input type="checkbox" name="wpAuthProviderEnabled"<%= (JiveGlobals.getProperty("wordpress.auth.provider.enabled", "false").equals("true")) ? " checked" : "" %>>
+                    <fmt:message key="config.page.configuration.auth.enabled" />       
+                </td>  
+            </tr>   
+            <tr>
+                <td nowrap  colspan="2">
+                    <input type="checkbox" name="wpUserProviderEnabled"<%= (JiveGlobals.getProperty("wordpress.user.provider.enabled", "false").equals("true")) ? " checked" : "" %>>
+                    <fmt:message key="config.page.configuration.user.enabled" />       
+                </td>  
+            </tr>
+            <tr>
+                <td nowrap  colspan="2">
+                    <input type="checkbox" name="wpGroupProviderEnabled"<%= (JiveGlobals.getProperty("wordpress.group.provider.enabled", "false").equals("true")) ? " checked" : "" %>>
+                    <fmt:message key="config.page.configuration.group.enabled" />       
+                </td>  
+            </tr>            
             </tbody>
         </table>
     </p>

@@ -23,6 +23,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 import javax.security.auth.Subject;
+import javax.servlet.ServletRequest;
 
 import org.eclipse.jetty.server.UserIdentity;
 import org.eclipse.jetty.util.component.AbstractLifeCycle;
@@ -113,7 +114,7 @@ public class OpenfireLoginService extends AbstractLifeCycle implements LoginServ
         return this.getClass().getSimpleName()+"["+_name+"]";
     }
 
-    public UserIdentity login(String userName, Object credential)
+    public UserIdentity login(String userName, Object credential, ServletRequest request)
     {
         Log.debug("UserIdentity login " + userName + " ");
 

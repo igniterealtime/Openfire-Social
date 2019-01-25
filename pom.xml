@@ -61,7 +61,7 @@
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-jspc-maven-plugin</artifactId>
-                <version>9.2.14.v20151106</version>
+                <version>9.4.12.v20180830</version>
                 <configuration>
                     <webAppSourceDirectory>${project.build.sourceDirectory}/../web</webAppSourceDirectory>
                     <webXml>${project.build.sourceDirectory}/../web/WEB-INF/web.xml</webXml>
@@ -113,7 +113,7 @@
         <dependency>
             <groupId>org.eclipse.jetty.fcgi</groupId>
             <artifactId>fcgi-server</artifactId>
-            <version>9.2.14.v20151106</version>
+            <version>9.4.12.v20180830</version>
         </dependency>             
         
         <dependency>
