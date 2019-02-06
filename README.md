@@ -10,12 +10,14 @@ Provides social network with member profiles, activity streams, user groups, mes
 
 # What you need
 - MySQL or compatible DB
-- PHP-fpm or PHP-CGI
+- PHP-fpm or PHP-CGI. 
+Edit /etc/php-fpm.d/www.conf file as needed, ensuring that PHP-fpm is listening on localhost:9000 and the user under which it runs matches your openfire user.
 - Openfire 3.4.0 or higher configured and working with MySQL DB. You **cannot** use the embedded db
 
 # How to Install
 - Deploy the wordpress.jar file from the [release pages here](https://github.com/igniterealtime/Openfire-Social/releases/tag/v0.0.2) in Openfire as a normal plugin
-- Go to https://yourserver:7443/wp-admin to setup wordpress in the same MySQL DB as Openfire
+- First go to https://yourserver:7443/info.php to confirm PHP PHP-fpm gateway is working and Jetty can serve PHP from Openfire
+- Then go to https://yourserver:7443/wp-admin to setup wordpress in the same MySQL DB as Openfire
 - When prompted for username/password, use the admin user in openfire to continue
 - Activate and configure all 5 pre-installed wordpress plugins.
 - Create some users, groups and forums to confirm Wordpress is working fine with Jetty Web server in Openfire
