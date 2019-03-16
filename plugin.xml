@@ -5,8 +5,8 @@
     <name>WordPress</name>
     <description>WordPress Plugin</description>
     <licenseType>Apache 2.0</licenseType>
-    <version>0.0.2</version>
-    <date>01/25/2019</date>
+    <version>0.0.3</version>
+    <date>03/16/2019</date>
     <minServerVersion>4.3.0</minServerVersion>
 
    <adminconsole>

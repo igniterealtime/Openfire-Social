@@ -103,7 +103,7 @@ public class PluginImpl implements Plugin, PropertyEventListener
 
                 ServletHolder fgciHolder = new ServletHolder("fcgi", new FastCGIProxyServlet());
                 fgciHolder.setAsyncSupported(true);
-                fgciHolder.setInitParameter("proxyTo","http://localhost:9000");
+                fgciHolder.setInitParameter("proxyTo", JiveGlobals.getProperty("wordpress.php.proxyto", "http://localhost:9000"));
                 fgciHolder.setInitParameter("prefix","/");
                 fgciHolder.setInitParameter("scriptRoot", pluginDirectory.getPath() + "/classes");
                 fgciHolder.setInitParameter("scriptPattern","(.+?\\.php)");
@@ -243,6 +243,8 @@ public class PluginImpl implements Plugin, PropertyEventListener
         lines.add( "if ( !defined('ABSPATH') ) define('ABSPATH', dirname(__FILE__) . '/');" );
         lines.add( "require_once(ABSPATH . 'wp-settings.php');" );
         lines.add( "if ( !defined( 'WP_CLI' ) ) { add_filter('wp_headers', function($headers) { unset($headers['X-Pingback']); return $headers; }); add_filter( 'xmlrpc_methods', function( $methods ) { unset( $methods['pingback.ping'] ); return $methods; }); add_filter( 'auto_update_translation', '__return_false' ); }");
+
+        lines.add(JiveGlobals.getProperty("wordpress.wp-config.php", ""));
 
         Path file = Paths.get(homePath + "/wp-config.php");
         Files.write(file, lines, Charset.forName("UTF-8"));

@@ -114,6 +114,11 @@ public class OpenfireLoginService extends AbstractLifeCycle implements LoginServ
         return this.getClass().getSimpleName()+"["+_name+"]";
     }
 
+    public UserIdentity login(String userName, Object credential)
+    {
+        return login(userName, credential, null);
+    }
+
     public UserIdentity login(String userName, Object credential, ServletRequest request)
     {
         Log.debug("UserIdentity login " + userName + " ");
