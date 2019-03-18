@@ -31,6 +31,10 @@ import org.jivesoftware.openfire.container.Plugin;
 import org.jivesoftware.openfire.container.PluginManager;
 import org.jivesoftware.openfire.http.HttpBindManager;
 import org.jivesoftware.openfire.XMPPServer;
+import org.jivesoftware.openfire.ConnectionManager;
+import org.jivesoftware.openfire.spi.ConnectionListener;
+import org.jivesoftware.openfire.spi.ConnectionManagerImpl;
+import org.jivesoftware.openfire.spi.ConnectionType;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -60,7 +64,7 @@ public class PluginImpl implements Plugin, PropertyEventListener
 
     private PluginImpl plugin;
     private WebAppContext context;
-
+    private Thread initThread = null;
 
     public void destroyPlugin()
     {
@@ -83,36 +87,72 @@ public class PluginImpl implements Plugin, PropertyEventListener
             try {
                 PropertyEventDispatcher.addListener(this);
 
-                Log.info("Initialize wordpress WebService ");
+                initThread = new Thread()
+                {
+                    @Override public void run()
+                    {
+                        boolean running = true;
 
-                context = new WebAppContext();
-                context.setContextPath("/");
+                        while ( running )
+                        {
+                            if (isAcceptingClientConnections() )    // making sure wordpress ROOT web service starts last
+                            {
+                                try
+                                {
+                                    Thread.sleep( 20000 );
 
-                context.setClassLoader(this.getClass().getClassLoader());
-                context.setResourceBase(pluginDirectory.getPath() + "/classes");
-                context.setWelcomeFiles(new String[]{"index.php"});
+                                    Log.info("Initialize wordpress WebService ");
 
-                FilterHolder tryHolder = new FilterHolder(new TryFilesFilter());
-                tryHolder.setInitParameter("files", "$path /index.php?p=$path");
-                context.addFilter(tryHolder, "/*", EnumSet.of(DispatcherType.REQUEST));
+                                    context = new WebAppContext();
+                                    context.setContextPath("/");
 
-                ServletHolder defHolder = new ServletHolder("default", new DefaultServlet());
-                defHolder.setAsyncSupported(true);
-                defHolder.setInitParameter("dirAllowed","false");
-                context.addServlet(defHolder,"/");
+                                    context.setClassLoader(this.getClass().getClassLoader());
+                                    context.setResourceBase(pluginDirectory.getPath() + "/classes");
+                                    context.setWelcomeFiles(new String[]{"index.php"});
 
-                ServletHolder fgciHolder = new ServletHolder("fcgi", new FastCGIProxyServlet());
-                fgciHolder.setAsyncSupported(true);
-                fgciHolder.setInitParameter("proxyTo", JiveGlobals.getProperty("wordpress.php.proxyto", "http://localhost:9000"));
-                fgciHolder.setInitParameter("prefix","/");
-                fgciHolder.setInitParameter("scriptRoot", pluginDirectory.getPath() + "/classes");
-                fgciHolder.setInitParameter("scriptPattern","(.+?\\.php)");
+                                    FilterHolder tryHolder = new FilterHolder(new TryFilesFilter());
+                                    tryHolder.setInitParameter("files", "$path /index.php?p=$path");
+                                    context.addFilter(tryHolder, "/*", EnumSet.of(DispatcherType.REQUEST));
 
-                context.addServlet(fgciHolder, "*.php");
-                context.setSecurityHandler(basicAuth("wordpress"));
-                HttpBindManager.getInstance().addJettyHandler(context);
+                                    ServletHolder defHolder = new ServletHolder("default", new DefaultServlet());
+                                    defHolder.setAsyncSupported(true);
+                                    defHolder.setInitParameter("dirAllowed","false");
+                                    context.addServlet(defHolder,"/");
 
-                setupWordPress(pluginDirectory.getPath() + "/classes");
+                                    ServletHolder fgciHolder = new ServletHolder("fcgi", new FastCGIProxyServlet());
+                                    fgciHolder.setAsyncSupported(true);
+                                    fgciHolder.setInitParameter("proxyTo", JiveGlobals.getProperty("wordpress.php.proxyto", "http://localhost:9000"));
+                                    fgciHolder.setInitParameter("prefix","/");
+                                    fgciHolder.setInitParameter("scriptRoot", pluginDirectory.getPath() + "/classes");
+                                    fgciHolder.setInitParameter("scriptPattern","(.+?\\.php)");
+
+                                    context.addServlet(fgciHolder, "*.php");
+                                    context.setSecurityHandler(basicAuth("wordpress"));
+                                    HttpBindManager.getInstance().addJettyHandler(context);
+
+                                    setupWordPress(pluginDirectory.getPath() + "/classes");
+                                    return;
+                                }
+                                catch ( Exception e )
+                                {
+                                    Log.error( "An exception occurred while initializing wordpress", e );
+                                }
+                            }
+
+                            Log.info( "Waiting for the server to accept client connections..." );
+                            try
+                            {
+                                Thread.sleep( 1000 );
+                            }
+                            catch ( InterruptedException e )
+                            {
+                                Log.debug( "Interrupted wait for the server to accept client connections...", e );
+                                running = false;
+                            }
+                        }
+                    }
+                };
+                initThread.start();
 
             } catch (Exception e) {
                 Log.error("wordpress error", e);
@@ -134,6 +174,18 @@ public class PluginImpl implements Plugin, PropertyEventListener
         }
 
         return ourIpAddress;
+    }
+
+    private static boolean isAcceptingClientConnections()
+    {
+        final ConnectionManager cm = XMPPServer.getInstance().getConnectionManager();
+        if ( cm != null )
+        {
+            final ConnectionManagerImpl cmi = (( ConnectionManagerImpl) cm );
+            final ConnectionListener cl = cmi.getListener( ConnectionType.SOCKET_C2S, false );
+            return cl != null && cl.getSocketAcceptor() != null;
+        }
+        return false;
     }
 
     private static final SecurityHandler basicAuth(String realm) {
